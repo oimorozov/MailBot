@@ -21,23 +21,28 @@ def get_mail():
                 decode_args = decode_header(mail["Subject"])
                 from_args = decode_header(mail["From"])
 
+                decode_from = ""
                 for part, decoding in from_args:
                     if decoding == "utf-8":
                         decode_from = part.decode("utf-8")
                     elif decoding == "windows-1251":
                         decode_from = part.decode("windows-1251")
+                    elif decoding == "koi8-r":
+                        decode_from = part.decode("koi8-r")
                     elif decoding == None:
                         decode_from = part
                     else:
                         raise Exception(f"Expected {decoding=}")
                     decode_from = str(decode_from)[2:-1]
                     print(f"{decode_from=} ")
-
+                decode_subject = ""
                 for part, decoding in decode_args:
                     if decoding == "utf-8":
                         decode_subject = part.decode("utf-8")
                     elif decoding == "windows-1251":
                         decode_subject = part.decode("windows-1251")
+                    elif decoding == "koi8-r":
+                        decode_from = part.decode("koi8-r")
                     elif decoding == None:
                         decode_subject = part
                     else:
